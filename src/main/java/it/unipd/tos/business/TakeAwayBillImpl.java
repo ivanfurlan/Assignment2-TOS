@@ -13,14 +13,18 @@ public class TakeAwayBillImpl implements TakeAwayBill {
         double totale = 0;
         int countPanini = 0;
         double prezzoPaninoMenoCaro = 0;
+        int countElementi = 0; 
         
         for(MenuItem element : itemsOrdered) {
-            totale += element.getPrezzo();
             if(element.getTipo()==ItemType.PANINO) {
                 if(countPanini == 0 || element.getPrezzo() < prezzoPaninoMenoCaro)
                     prezzoPaninoMenoCaro = element.getPrezzo();
                 countPanini++;
             }
+            countElementi++;
+            if(countElementi>30)
+                throw new TakeAwayBillException("Non si può acquistare più di 30 elementi.");
+            totale += element.getPrezzo();
         }
         
         if(countPanini>=5)
