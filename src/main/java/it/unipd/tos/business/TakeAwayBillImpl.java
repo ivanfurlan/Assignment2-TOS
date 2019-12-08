@@ -10,6 +10,11 @@ import it.unipd.tos.model.MenuItem;
 public class TakeAwayBillImpl implements TakeAwayBill {
     public double getOrderPrice(List<MenuItem> itemsOrdered) throws TakeAwayBillException {
         double totale=0;
+        
+        for(MenuItem element : itemsOrdered) {
+            totale += element.getPrezzo();
+        }
+
         return totale;
     }
 }
