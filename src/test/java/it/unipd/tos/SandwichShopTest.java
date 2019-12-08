@@ -21,7 +21,15 @@ public class SandwichShopTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    
+
+    @Test
+    public void MenuItem_NomeCorretto(){
+        MenuItem test = new MenuItem(ItemType.PANINO, "Panino", 3.50);
+
+        assertEquals("Panino", test.getNome());
+
+    }
+
     @Test
     public void SandwichShop_TotaleCorretto(){
         List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
@@ -98,25 +106,25 @@ public class SandwichShopTest {
             exc.getMessage();
         }
     }
-    
+
     @Test
     public void SandwichShop_Limite30Elementi() throws TakeAwayBillException{
         List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
         TakeAwayBill test = new TakeAwayBillImpl();
-        
+
         for(int i=0; i<10; i++) {
             itemsOrdered.add(new MenuItem(ItemType.PANINO, "Panino", 10));
             itemsOrdered.add(new MenuItem(ItemType.FRITTO, "Fritto", 9.50));
             itemsOrdered.add(new MenuItem(ItemType.BEVANDA, "Bevanda", 20));
         }
         itemsOrdered.add(new MenuItem(ItemType.PANINO, "Panino", 5));
-        
+
         thrown.expect(TakeAwayBillException.class);
         thrown.expectMessage("Non si può acquistare più di 30 elementi.");   
-        
+
         test.getOrderPrice(itemsOrdered);
     }
-    
+
     @Test
     public void SandwichShop_CommissioneSotto10Euro(){
         List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
