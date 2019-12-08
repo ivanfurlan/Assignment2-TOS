@@ -26,6 +26,9 @@ public class TakeAwayBillImpl implements TakeAwayBill {
         if(countPanini>=5)
             totale-=prezzoPaninoMenoCaro/2;
         
+        if(totale>=50)
+            totale-=totale*0.1;
+        
         return totale;
     }
 }
